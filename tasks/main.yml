@@ -1,0 +1,43 @@
+---
+- name: Install Dependencies
+  become: yes
+  package:
+    name: 
+      - git
+      - zsh
+    state: present
+
+- name: Debug
+  debug:
+    msg: "{{ vars }}"
+- pause:
+
+- name: Clone Oh-My-Zsh repository for user {{ oh_my_zsh.username }}
+  become: yes
+  become_user: "{{ oh_my_zsh.username }}"
+  git:
+    repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+    dest: ~/.oh-my-zsh
+    depth: 1
+
+- name: Set correct permissions for Oh-My-Zsh for user {{ oh_my_zsh.username }}
+  become: yes
+  become_user: "{{ oh_my_zsh.username }}"
+  file:
+    path: ~/.oh-my-zsh
+    mode: "u=rwx,go=rx"
+
+- name: Set .zshrc for user {{ oh_my_zsh.username }}
+  become: yes
+  become_user: "{{ oh_my_zsh.username }}"
+  template:
+    src: "{{ oh_my_zsh.template | default(oh_my_zsh_template) }}"
+    dest: ~/.zshrc
+    backup: yes
+    mode: "644"
+
+- name: Set default shell for user {{ oh_my_zsh.username }}
+  become: yes
+  user:
+    name: "{{ oh_my_zsh.username }}"
+    shell: /bin/zsh

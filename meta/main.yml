@@ -1,0 +1,20 @@
+galaxy_info:
+  author: GeorgeV
+  description: Install and configure Oh-My-Zsh
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+  - name: Ubuntu
+    versions:
+      - xenial
+      - bionic
+      - focal
+
+  galaxy_tags:
+    - ohmyzsh
+    - zsh
+    - console
+    - shell
+    - terminal
+
+dependencies: []
