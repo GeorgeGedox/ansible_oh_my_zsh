@@ -1,6 +1,7 @@
 galaxy_info:
   author: GeorgeV
   description: Install and configure Oh-My-Zsh
+  role_name: oh_my_zsh
   license: MIT
   min_ansible_version: 2.4
   platforms:
