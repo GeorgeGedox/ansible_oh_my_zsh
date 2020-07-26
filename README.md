@@ -31,7 +31,7 @@ Example Playbook
 ```yml
 - hosts: vbox
   roles:
-    - role: oh-my-zsh
+    - role: georgegedox.oh_my_zsh
       oh_my_zsh:
         username: george
         theme: bira
