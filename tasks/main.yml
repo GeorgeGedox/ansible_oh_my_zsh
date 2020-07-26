@@ -7,11 +7,6 @@
       - zsh
     state: present
 
-- name: Debug
-  debug:
-    msg: "{{ vars }}"
-- pause:
-
 - name: Clone Oh-My-Zsh repository for user {{ oh_my_zsh.username }}
   become: yes
   become_user: "{{ oh_my_zsh.username }}"
