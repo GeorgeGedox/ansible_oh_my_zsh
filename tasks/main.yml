@@ -9,27 +9,31 @@
 
 - name: Clone Oh-My-Zsh repository for user {{ oh_my_zsh.username }}
   become: yes
-  become_user: "{{ oh_my_zsh.username }}"
   git:
     repo: "https://github.com/ohmyzsh/ohmyzsh.git"
-    dest: ~/.oh-my-zsh
+    dest: ~{{ oh_my_zsh.username }}/.oh-my-zsh
     depth: 1
+    force: yes
 
 - name: Set correct permissions for Oh-My-Zsh for user {{ oh_my_zsh.username }}
   become: yes
-  become_user: "{{ oh_my_zsh.username }}"
   file:
-    path: ~/.oh-my-zsh
+    path: ~{{ oh_my_zsh.username }}/.oh-my-zsh
     mode: "u=rwx,go=rx"
+    owner: "{{ oh_my_zsh.username }}"
+    group: "{{ oh_my_zsh.username }}"
+    state: directory
+    recurse: yes
 
 - name: Set .zshrc for user {{ oh_my_zsh.username }}
   become: yes
-  become_user: "{{ oh_my_zsh.username }}"
   template:
     src: "{{ oh_my_zsh.template | default(oh_my_zsh_template) }}"
-    dest: ~/.zshrc
+    dest: ~{{ oh_my_zsh.username }}/.zshrc
     backup: yes
     mode: "644"
+    owner: "{{ oh_my_zsh.username }}"
+    group: "{{ oh_my_zsh.username }}"
 
 - name: Set default shell for user {{ oh_my_zsh.username }}
   become: yes
